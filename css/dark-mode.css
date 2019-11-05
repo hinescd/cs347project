@@ -35,4 +35,71 @@
   color: #eee;
 }
 
-/* TODO: FLESH OUT THE REST OF THE DARK MODE THEME*/
+[data-theme="dark"] .calendar td {
+  width: calc(100%/7);
+  height: 120px;
+  border: 1px solid #eee;
+  text-align: left;
+  vertical-align: top;
+  padding: 5px;
+}
+
+[data-theme="dark"] .form-control {
+  background-color: #485051;
+  border-color:#007bff;
+}
+
+[data-theme="dark"] .form-control::-moz-focus-inner {
+  border: 25px ridge #007bff;
+}
+
+[data-theme="dark"] .form-control::-webkit-input-placeholder { color: #eee; }  /* WebKit, Blink, Edge */
+[data-theme="dark"] .form-control:-moz-placeholder { color: #eee; }  /* Mozilla Firefox 4 to 18 */
+[data-theme="dark"] .form-control::-moz-placeholder { color: #eee; }  /* Mozilla Firefox 19+ */
+[data-theme="dark"] .form-control:-ms-input-placeholder { color: #eee; }  /* Internet Explorer 10-11 */
+[data-theme="dark"] .form-control::-ms-input-placeholder { color: #eee; }  /* Microsoft Edge */
+
+[data-theme="dark"] .breadcrumb {
+  background-color: #485051;
+}
+
+[data-theme="dark"] .breadcrumb-item {
+  color: #eee;
+}
+
+[data-theme="dark"] .table-striped>thead>tr>th {
+  color: #eee;
+  background-color: #333;
+}
+
+[data-theme="dark"] .table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #485051;
+}
+
+[data-theme="dark"] div {
+  color: #eee;
+}
+
+[data-theme="dark"] .modal-header {
+  color: #eee;
+  background-color: #333;
+}
+
+[data-theme="dark"] .modal-body {
+  color: #eee;
+  background-color: #222;
+}
+
+[data-theme="dark"] .modal-footer {
+  color: #eee;
+  background-color: #333;
+}
+
+[data-theme="dark"] .btn-default {
+  color: #eee;
+}
+
+[data-theme="dark"] .text-muted {
+  color: #007bff !important;
+}
