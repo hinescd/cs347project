@@ -26,7 +26,7 @@ as recently added ARIA accessability features.-->
   </head>
   <body>
     <!--Webpage body -->
-    <div class="container">
+    <div class="container col-md-9">
       <!-- Page Header -->
       <div class="page-header">
         <h1>Welcome to the JMU TA system!</h1>
@@ -57,9 +57,11 @@ as recently added ARIA accessability features.-->
       <div class="jumbotron">
         <div id="calendar-container">
           <div id="calendar-header">
+            <button class="btn btn-info" id="prevMonth">&lt;</button>
             <span id="calendar-month-year"></span>
+            <button class="btn btn-info" id="nextMonth">&gt;</button>
           </div>
-          <div id="calendar-dates"></div>
+          <div id="calendar-dates" class="col-sm-12"></div>
         </div>
       </div>
 

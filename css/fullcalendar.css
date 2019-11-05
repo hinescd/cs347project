@@ -23,10 +23,19 @@
     margin: 5px;
 }
 
-#calendar-dates>table>tr>td {
-    padding: 5px;
+.calendar {
+    width: 100%;
 }
 
-#calendar-dates>table {
-    display: inline-block;
+.calendar tr:first-child td {
+    height: 12px;
+}
+
+.calendar td {
+    width: calc(100%/7);
+    height: 120px;
+    border: 1px solid black;
+    text-align: left;
+    vertical-align: top;
+    padding: 5px;
 }

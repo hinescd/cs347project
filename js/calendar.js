@@ -4,73 +4,102 @@
  * eventual removal later.
  */
 
-window.onload = function () {
-  /* Preamble variables */
-  var date = new Date() // today's date
-  var monthName = ['January', 'February', 'March', 'April', 'May',
-    'June', 'July', 'August', 'September', 'October', 'November', 'December']
+function drawCalendar(date, taShifts) {
   var month = date.getMonth() /* 0-11 */
   var year = date.getFullYear() // year
-  var firstDate = monthName[month] + ' ' + 1 + ' ' + year
-  var temp = new Date(firstDate).toDateString()
-  var firstDay = temp.substring(0, 3) // current month three-char identifier
-  var dayName = ['Sun', 'Mon', 'Tue', 'Thu', 'Fri', 'Sat']
-  var dayNum = dayName.indexOf(firstDay) // where the first day is starting
-  var days = new Date(year, month + 1, 0).getDate() // how many days are in the month
+  var firstDayOfMonth = new Date(year, month, 1)
+  var startingDayOfWeek = firstDayOfMonth.getDay() // day of the week the first day of the month is on
+  var daysInMonth = new Date(year, month + 1, 0).getDate() // how many days are in the month
+
+  if(taShifts === undefined) {
+    // Get a list of shifts for the month if the function wasn't given any. In the future, we should use fetch to get data from the server here
+    var classes = ['CS101', 'CS149', 'CS159', 'CS240', 'CS261']
+    var taShifts = []
+    for(var i = 0; i < daysInMonth; i++) {
+      for(var j = 0; j < 3; j++) {
+        start = new Date(year, month, i+1, 13+Math.floor(Math.random()*5), 0)
+        end = new Date(year, month, i+1, start.getHours() + 2, 0)
+        clas = Math.floor(Math.random() * classes.length)
+        taShifts.push({class: classes[clas], start: start, end: end})
+      }
+    }
+  }
 
   /* Calendar construction */
-  var calendar = getCalendar(dayNum, days)
-  document.getElementById('calendar-month-year').innerHTML = monthName[month] + ' ' + year
+  var calendar = getCalendar(startingDayOfWeek, daysInMonth, taShifts)
+  document.getElementById('calendar-month-year').innerHTML = date.toLocaleString('default', {month: 'long'}) + ' ' + year
+  document.getElementById('calendar-dates').innerHTML = ''
   document.getElementById('calendar-dates').appendChild(calendar)
 }
 
-function getCalendar (dayNum, days) {
+function getCalendar (startingDayOfWeek, daysInMonth, taShifts) {
   var table = document.createElement('table')
+  table.classList.add("calendar")
   var tr = document.createElement('tr')
   var td
 
   // row for the day letters
   for (var i = 0; i <= 6; i++) {
     td = document.createElement('td')
-    td.innerHTML = 'SMTWTFS'[i]
+    td.innerHTML = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Sunday'][i]
     tr.appendChild(td)
   }
   table.appendChild(tr)
 
-  // create 2nd row
+  var dayOfMonth = 1
+  var makingDays = false  // Used to keep track of whether the month has started yet, since the first day might not be on a Sunday
   tr = document.createElement('tr')
-  for (i = 0; i <= 6; i++) {
-    if (i === dayNum) {
-      break
-    }
-    td = document.createElement('td')
-    td.innerHTML = ''
-    tr.appendChild(td)
+
+  // Used for getting TA shift times
+  var options = {
+    hour12: true,
+    hour: '2-digit',
+    minute: '2-digit'
   }
 
-  var count = 1;
-
-  for (; i <= 6; i++) {
-    td = document.createElement('td')
-    td.innerHTML = count
-    count++
-    tr.appendChild(td)
-  }
-  table.appendChild(tr)
-
-  // rest of date rows
-  for (var r = 3; r <= 6; r++) {
+  // Construct the calendar row by row
+  while(dayOfMonth <= daysInMonth) {
     tr = document.createElement('tr')
-    for (var c = 0; c <= 6; c++) {
-      if (count > days) {
-        table.appendChild(tr)
-        return table
-      }
+
+    // Create 7 cells in the row
+    for(var dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
       td = document.createElement('td')
-      td.innerHTML = count
-      count++
+
+      // If the month has started and hasn't ended
+      if((makingDays || dayOfWeek >= startingDayOfWeek) && dayOfMonth <= daysInMonth) {
+        makingDays = true
+
+        // Put the day of month in the cell
+        td.innerHTML = dayOfMonth
+
+        // And add any shifts for the day
+        taShifts.filter(shift => shift.start.getDate() == dayOfMonth).forEach(shift => {
+          td.innerHTML += `<br><span class="badge badge-primary">${shift.class}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}</span>`
+        })
+        dayOfMonth++
+      }
       tr.appendChild(td)
     }
     table.appendChild(tr)
+  }
+  return table
+}
+
+window.onload = function () {
+  /* Preamble variables */
+  var date = new Date() // today's date
+
+  // In the future, we want PHP to generate an array of shifts here and pass it into drawCalendar
+  // so that the shifts for the current month are already loaded in
+  drawCalendar(date)
+  
+  document.querySelector("#prevMonth").onclick = () => {
+    date = new Date(date.getFullYear(), date.getMonth()-1)
+    drawCalendar(date)
+  }
+  
+  document.querySelector('#nextMonth').onclick = () => {
+    date = new Date(date.getFullYear(), date.getMonth()+1)
+    drawCalendar(date)
   }
 }
