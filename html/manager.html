@@ -115,7 +115,17 @@ as recently added ARIA accessability features.-->
               </div>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#collapsibleTab">
                 <div class="card-body">
-                  Remove People content
+                  <form>
+                    <div class="form-group">
+                      <label for="emailInput">Email of person to remove</label>
+                      <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                      <label for="passInput">Confirm your password</label>
+                      <input type="password" class="form-control" id="passInput" placeholder="Enter password">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">remove</button>
+                  </form>
                 </div>
               </div>
             </div>
