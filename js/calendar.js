@@ -73,9 +73,17 @@ function getCalendar (startingDayOfWeek, daysInMonth, taShifts) {
         td.innerHTML = dayOfMonth
 
         // And add any shifts for the day
-        taShifts.filter(shift => shift.start.getDate() == dayOfMonth).forEach(shift => {
+        let shiftsToday = taShifts.filter(shift => shift.start.getDate() == dayOfMonth)
+        shiftsToday.forEach(shift => {
           td.innerHTML += `<br><span class="badge badge-primary">${shift.class}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}</span>`
         })
+
+        // If there are shifts today, populate and show the modal when today's cell is clicked
+        if(shiftsToday.length > 0) {
+          td.setAttribute('data-toggle', 'modal')
+          td.setAttribute('data-target', '#shiftModal')
+          td.onclick = e => populateShiftModal(shiftsToday)
+        }
         dayOfMonth++
       }
       tr.appendChild(td)
@@ -102,4 +110,24 @@ window.onload = function () {
     date = new Date(date.getFullYear(), date.getMonth()+1)
     drawCalendar(date)
   }
+}
+
+function populateShiftModal(shifts) {
+  document.querySelector('#shiftModal-date').innerHTML = shifts[0].start.toDateString()
+  document.querySelector('#shiftModal-list').innerHTML = ''
+  var shiftList = document.createElement('ul')
+  shiftList.classList.add('list-group')
+
+  // Used for getting TA shift times
+  var options = {
+    hour12: true,
+    hour: '2-digit',
+    minute: '2-digit'
+  }
+
+  // List each shift for the day in the modal
+  shifts.forEach(shift => {
+    shiftList.innerHTML += `<li class="list-group-item">${shift.class}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}</li>`
+  })
+  document.querySelector('#shiftModal-list').appendChild(shiftList)
 }

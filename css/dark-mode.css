@@ -103,3 +103,7 @@
 [data-theme="dark"] .text-muted {
   color: #007bff !important;
 }
+
+[data-theme="dark"] .list-group-item {
+  background-color: #333;
+}

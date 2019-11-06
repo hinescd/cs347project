@@ -27,7 +27,7 @@ as recently added ARIA accessability features.-->
   </head>
   <body>
     <!--Webpage body -->
-    <div class="container col-md-9">
+    <div class="container-fluid">
       <!-- Page Header -->
       <div class="page-header">
         <h1>Welcome to the JMU TA system!</h1>
@@ -400,6 +400,20 @@ as recently added ARIA accessability features.-->
               </div>
             </div>
           </div>
+      </div>
+      <!-- Shift Modal -->
+      <div class="modal fade" id="shiftModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 id="shiftModal-date"></h1>
+            </div>
+            <div class="modal-body" id="shiftModal-list"></div>
+            <div class="modal-footer">
+              <button class="btn btn-default" value="Close" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
