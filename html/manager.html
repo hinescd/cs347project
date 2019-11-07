@@ -141,9 +141,33 @@ as recently added ARIA accessability features.-->
               </div>
               <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#collapsibleTab">
                 <div class="card-body">
-                  Scheduling content
+                 <!-- Tab links -->
+                <div class="tab">
+                  <button class="tablinks" onclick="openTab(event, 'Semester')">Manage Semester</button>
+                  <button class="tablinks" onclick="openTab(event, 'Shift')">Add Shifts</button>
+                  <button class="tablinks" onclick="openTab(event, 'Cover')">Approve Covers</button>
+                  <button class="tablinks" onclick="openTab(event, 'Management')">Student Management</button>
                 </div>
-              </div>
+                  <!-- Tab content -->
+                <div id="Semester" class="tabcontent">
+                  <h3>Manage Semester</h3>
+                  <p> This is the tab for the Manage Semester functions.</p>
+                </div>
+                <div id="Shift" class="tabcontent">
+                  <h3>Add Shifts</h3>
+                  <p>This is the tab for the Add Shifts functions</p>
+                </div>
+                <div id="Cover" class="tabcontent">
+                  <h3>Approve Covers</h3>
+                  <p>This is the tab for the Approve Covers functions</p>
+                </div>
+
+                <div id="Management" class="tabcontent">
+                  <h3>Student Management</h3>
+                  <p>This is the tab for the Student Management functions</p>
+                </div>
+                </div>
+               </div>
             </div>
 
             <!-- Statistics tab -->
@@ -223,5 +247,6 @@ as recently added ARIA accessability features.-->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../js/calendar.js"></script>
     <script src="../js/dark-mode-switch.js"></script>
+    <script src="../js/manager.js"></script>
   </body>
 </html>
