@@ -29,5 +29,5 @@ CREATE TABLE Answer
   answered DATETIME NOT NULL DEFAULT NOW(),
   author TEXT,
   CONSTRAINT Answer_answerID_pk PRIMARY KEY (answerID),
-  CONSTRAINT Answer_questionID_fk FOREIGN KEY (questionID) REFERENCES ClassForum (questionID)
+  CONSTRAINT Answer_questionID_fk FOREIGN KEY (questionID) REFERENCES Question (questionID)
 );
