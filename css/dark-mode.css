@@ -107,3 +107,11 @@
 [data-theme="dark"] .list-group-item {
   background-color: #333;
 }
+
+[data-theme="dark"] .card-body {
+  background-color: #333;
+}
+
+[data-theme="dark"] .card-header {
+  background-color: #222;
+}
