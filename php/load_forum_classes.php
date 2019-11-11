@@ -2,7 +2,7 @@
     require_once("db_connection.php");
     $connection = OpenCon();
 
-    $query = "SELECT * FROM classForum";
+    $query = "SELECT * FROM classforum";
     if ($connection->connect_errno) {
         printf("Connect failed: %s\n", $connection->connect_error);
         exit();
