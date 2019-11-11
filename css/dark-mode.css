@@ -116,6 +116,10 @@
   background-color: #222;
 }
 
+[data-theme="dark"] .tabButton {
+  background-color: #222;
+}
+
 [data-theme="dark"] li {
   color: #eee;
 }
