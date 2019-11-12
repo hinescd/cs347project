@@ -7,6 +7,19 @@ This page has been developed with the use of bootstrap. The primary factor in
 this decision was adherence to mobile-first development responsiveness.
 However, bootstrap also allows for uniformaty of style and standard as well
 as recently added ARIA accessability features.-->
+
+<?php
+session_start();
+require_once('../php/login.php');
+if(isset($_POST['action']) && $_POST['action'] === 'login') {
+  $login_error = login();
+}
+if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
+  session_unset();
+  session_destroy();
+}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -45,12 +58,19 @@ as recently added ARIA accessability features.-->
             <li class="nav-item">
               <div class="btn-group" role="group" aria-label="navigation button group">
                   <a role="help button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#helpModal">Help</a>
-                  <a href="index.html" role="home button" type="button" class="btn btn-primary">Home</a>
+                  <a href="index.php" role="home button" type="button" class="btn btn-primary">Home</a>
                   <a href="manager.html" role="manager button" type="button" class="btn btn-primary">Manager Functions</a>
               </div>
             </li>
           </ul>
+<?php if(isset($_SESSION['personID'])): ?>
+          <form method="post" action="index.php">
+            <input type="hidden" name="action" value="logoff">
+            <input type="submit" class="btn btn-outline-primary my-2 my-sm-0" value="Logoff">
+          </form>
+<?php else: ?>
           <button class="btn btn-outline-primary my-2 my-sm-0" type="login"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></button>
+<?php endif; ?>
           <div class="nav-link">
             <div class="custom-control custom-switch">
               <input type="checkbox" class="custom-control-input" id="darkSwitch">
@@ -282,27 +302,27 @@ as recently added ARIA accessability features.-->
             <div class="modal-header">
               <h1>Login</h1>
             </div>
-            <div class="modal-body">
-              <form>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                  </div>
-                  <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                  </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              <button class="btn btn-default" value="Close" data-dismiss="modal">Close</button>
-            </div>
+            <form method="post" action="index.php">
+              <div class="modal-body">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+                    </div>
+                    <input type="hidden" name="action" value="login">
+<?php if(!empty($login_error)):?>
+                    <span class="badge badge-danger"><?php echo $login_error?></span>
+<?php endif;?>
+              </div>
+              <div class="modal-footer">
+                <input type="submit" class="btn btn-primary" value="Submit">
+                <button class="btn btn-default" value="Close" data-dismiss="modal">Close</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -349,5 +369,12 @@ as recently added ARIA accessability features.-->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../js/calendar.js"></script>
     <script src="../js/dark-mode-switch.js"></script>
+<?php if(!empty($login_error)):?>
+    <script>
+      $(document).ready(function() {
+        $('#loginModal').modal('show');
+      });
+    </script>
+<?php endif;?>
   </body>
 </html>

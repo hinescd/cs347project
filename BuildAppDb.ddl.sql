@@ -34,7 +34,49 @@ CREATE TABLE answer
   CONSTRAINT Answer_questionID_fk FOREIGN KEY (questionID) REFERENCES question (questionID)
 );
 
-/* Test data Geoffrey used for forum loading */
+CREATE TABLE person
+(
+  personID INT NOT NULL AUTO_INCREMENT,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  role TEXT NOT NULL,
+  class TEXT,
+  availability TEXT,
+  password_hash TEXT,
+  CONSTRAINT Person_personID_pk PRIMARY KEY (personID)
+);
+
+CREATE TABLE semester
+(
+  semesterID INT NOT NULL AUTO_INCREMENT,
+  start DATETIME NOT NULL,
+  end DATETIME NOT NULL,
+  CONSTRAINT Semester_semesterID_pk PRIMARY KEY (semesterID)
+);
+
+CREATE TABLE shift
+(
+  shiftID INT NOT NULL AUTO_INCREMENT,
+  taID INT NOT NULL,
+  semesterID INT NOT NULL,
+  start DATETIME NOT NULL,
+  end DATETIME NOT NULL,
+  cover_requested BOOLEAN NOT NULL DEFAULT 0,
+  CONSTRAINT Shift_shiftID_pk PRIMARY KEY (shiftID),
+  CONSTRAINT Shift_taID_fk FOREIGN KEY (taID) REFERENCES person (personID)
+);
+
+CREATE TABLE cover
+(
+  shiftID INT NOT NULL,
+  covererID INT NOT NULL,
+  approvedBy INT,
+  CONSTRAINT Cover_shiftIDcovererID_pk PRIMARY KEY (shiftID, covererID),
+  CONSTRAINT Cover_shiftID_fk FOREIGN KEY (shiftID) REFERENCES shift (shiftID),
+  CONSTRAINT Cover_covererID FOREIGN KEY (covererID) REFERENCES person (personID),
+  CONSTRAINT Cover_approvedBy FOREIGN KEY (approvedBy) REFERENCES person (personID)
+);
+
 INSERT INTO classforum (className)
 	VALUES ('CS101'),
 	('CS247'),
@@ -49,9 +91,12 @@ INSERT INTO question (forumID, details, asked, author)
 	(3, 'When do I graduate?',NOW(),'Script Kiddie');
 	
 INSERT INTO answer (questionID, answer, answered, author)
-	VALUES ('1', 'Is your computer plugged in?', NOW(), 'CS Senior'),
+	VALUES (1, 'Is your computer plugged in?', NOW(), 'CS Senior'),
 	(1, 'You probably got a virus that killed your HD.', NOW(), 'CS Senior'),
 	(2, 'It seems your major is in another castle.', NOW(), 'CS Senior'),
 	(3, 'Go to Microsoft Outlook and enter your details.', NOW(), 'CS Senior'),
 	(5, 'Then you should probably go see another styleist.', NOW(), 'CS Senior'),
 	(6, 'No one ever really graduates. We just tell ourselves we did as we look for work.', NOW(), 'CS Senior');
+
+INSERT INTO person (name, email, role, class, availability)
+  VALUES ('Charlie Hines', 'hinescd@dukes.jmu.edu', 'TA', 'CS159', 'I''m literally never available.');
