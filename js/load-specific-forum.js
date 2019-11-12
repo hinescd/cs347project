@@ -10,7 +10,13 @@ $(document).ready(function () {
     anchors[i].addEventListener('click', function () {
       console.log('click')
       document.getElementById('forum_index').style.display = 'none'
-      document.getElementById('forum_container').innerHTML = fetch('../php/class_forum.php', '{method: "POST"}')
+      $('#bc_index').removeClass('active')
+      $('#bc_index').empty()
+      $('#bc_index').append('<a href="#0">Index</a>')
+      $('#forum_breadcrumb_list').append('<li id="class_index" class="breadcrumb-item active">' + this.text + '</li>')
+      $.post('../php/class_forum.php', { class: this.parentElement.parentElement.parentElement.id }, function (data) {
+        $('#forum_container').html(data)
+      })
     })
   }
 })
