@@ -60,18 +60,21 @@ as recently added ARIA accessability features.-->
         </div>
       </nav>
 
+      <!-- Toggle all tabs button -->
+      <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="collapseOne collapseTwo collapseThree collapseFour">Toggle all tabs</button>
+
       <!-- collapsable sections -->
       <div class="accordion" id="collapsibleTab">
             <!-- Add people tab -->
             <div class="card">
-              <div class="card-header" id="headingOne">
+              <div class="tabButton" id="headingOne">
                 <h2 class="mb-0">
-                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  <button class="btn btn-outline-primary collapsed btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                     Add People
                   </button>
                 </h2>
               </div>
-              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#collapsibleTab">
+              <div id="collapseOne" class="collapse multi-collapse" aria-labelledby="headingOne">
                 <div class="card-body">
                   <form>
                     <div class="form-group">
@@ -106,14 +109,14 @@ as recently added ARIA accessability features.-->
 
             <!-- Remove people tab -->
             <div class="card">
-              <div class="card-header" id="headingTwo">
+              <div class="tabButton" id="headingTwo">
                 <h2 class="mb-0">
-                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <button class="btn btn-outline-primary collapsed btn-block" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     Remove People
                   </button>
                 </h2>
               </div>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#collapsibleTab">
+              <div id="collapseTwo" class="collapse multi-collapse" aria-labelledby="headingTwo">
                 <div class="card-body">
                   <form>
                     <div class="form-group">
@@ -132,14 +135,14 @@ as recently added ARIA accessability features.-->
 
             <!-- Scheduling tab -->
             <div class="card">
-              <div class="card-header" id="headingThree">
+              <div class="tabButton" id="headingThree">
                 <h2 class="mb-0">
-                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <button class="btn btn-outline-primary collapsed btn-block" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                     Scheduling
                   </button>
                 </h2>
               </div>
-              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#collapsibleTab">
+              <div id="collapseThree" class="collapse multi-collapse" aria-labelledby="headingThree">
                 <div class="card-body">
                  <!-- Tab links -->
                 <div class="tab">
@@ -172,14 +175,14 @@ as recently added ARIA accessability features.-->
 
             <!-- Statistics tab -->
             <div class="card">
-                <div class="card-header" id="headingFour">
+                <div class="tabButton" id="headingFour">
                   <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    <button class="btn btn-outline-primary collapsed btn-block" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                       Statistics
                     </button>
                   </h2>
                 </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#collapsibleTab">
+                <div id="collapseFour" class="collapse multi-collapse" aria-labelledby="headingFour">
                   <div class="card-body">
                     Statistics content
                   </div>
