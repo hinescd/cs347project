@@ -15,7 +15,8 @@ CREATE TABLE classforum
 CREATE TABLE question
 (
   questionID INT NOT NULL AUTO_INCREMENT,
-  forumID int NOT NULL,
+  forumID INT NOT NULL,
+  title TEXT NOT NULL,
   details TEXT NOT NULL,
   asked DATETIME NOT NULL DEFAULT NOW(),
   author TEXT,
@@ -26,7 +27,7 @@ CREATE TABLE question
 CREATE TABLE answer
 (
   answerID INT NOT NULL AUTO_INCREMENT,
-  questionID int NOT NULL,
+  questionID INT NOT NULL,
   answer TEXT NOT NULL,
   answered DATETIME NOT NULL DEFAULT NOW(),
   author TEXT,
@@ -82,13 +83,13 @@ INSERT INTO classforum (className)
 	('CS247'),
 	('CS361');
 	
-INSERT INTO question (forumID, details, asked, author)
-	VALUES (1, 'I can not get my computer turned on!',NOW(),'Script Kiddie'),
-	(1, 'I do not know what computer science is!',NOW(),'Script Kiddie'),
-	(1, 'How do I access my JMU email!',NOW(),'Script Kiddie'),
-	(2, 'What is Java even? Coffee!?!?',NOW(),'Script Kiddie'),
-	(2, 'My IDE is not checkstyling correctly!',NOW(),'Script Kiddie'),
-	(3, 'When do I graduate?',NOW(),'Script Kiddie');
+INSERT INTO question (forumID, title, details, asked, author)
+	VALUES (1, 'Computer Problems!', 'I can not get my computer turned on!',NOW(),'Script Kiddie'),
+	(1, 'What is this major?', 'I do not know what computer science is!',NOW(),'Script Kiddie'),
+	(1, 'Email problems!', 'How do I access my JMU email!',NOW(),'Script Kiddie'),
+	(2, 'Java!?!?', 'What is Java even? Coffee!?!?',NOW(),'Script Kiddie'),
+	(2, 'Checkstyle issues...', 'My IDE is not checkstyling correctly!',NOW(),'Script Kiddie'),
+	(3, 'I want to get out of here!', 'When do I graduate?',NOW(),'Script Kiddie');
 	
 INSERT INTO answer (questionID, answer, answered, author)
 	VALUES (1, 'Is your computer plugged in?', NOW(), 'CS Senior'),
