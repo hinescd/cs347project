@@ -48,7 +48,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
 
       <!-- Page Navigation Bar-->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img src="../resources/TA_Iconx50px.png" alt="TA Icon"></a>
+        <a class="navbar-brand" href="index.php"><img src="../resources/TA_Iconx50px.png" alt="TA Icon"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -58,7 +58,6 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             <li class="nav-item">
               <div class="btn-group" role="group" aria-label="navigation button group">
                   <a role="help button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#helpModal">Help</a>
-                  <a href="index.php" role="home button" type="button" class="btn btn-primary">Home</a>
                   <a href="manager.html" role="manager button" type="button" class="btn btn-primary">Manager Functions</a>
               </div>
             </li>
