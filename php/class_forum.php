@@ -40,4 +40,4 @@ for ($x = 0; $x < count($questions); $x++) {
 echo("</tbody>");
 ?>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<script src="../js/class-forum.js"></script>
+<script src="../js/question-page.js"></script>
