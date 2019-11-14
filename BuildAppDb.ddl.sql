@@ -100,4 +100,5 @@ INSERT INTO answer (questionID, answer, answered, author)
 	(6, 'No one ever really graduates. We just tell ourselves we did as we look for work.', NOW(), 'CS Senior');
 
 INSERT INTO person (name, email, role, class, availability)
-  VALUES ('Charlie Hines', 'hinescd@dukes.jmu.edu', 'TA', 'CS159', 'I''m literally never available.');
+  VALUES ('Charlie Hines', 'hinescd@dukes.jmu.edu', 'TA', 'CS159', 'I''m literally never available.'),
+  ('Master Manager', 'manager@manager.com', 'MANAGER', NULL, NULL);
