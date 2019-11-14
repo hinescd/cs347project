@@ -58,7 +58,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             <li class="nav-item">
               <div class="btn-group" role="group" aria-label="navigation button group">
                   <a role="help button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#helpModal">Help</a>
-                  <a role="forum button" type="button" class="btn btn-primary" href="forum.php">Help Forum</a>
+                  <a role="forum button" type="button" class="btn btn-primary" href="#">Help Forum</a>
                   <a href="manager.html" role="manager button" type="button" class="btn btn-primary">Manager Functions</a>
               </div>
             </li>
@@ -80,16 +80,22 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
         </div>
       </nav>
 
-      <!-- Calendar section -->
-      <div class="jumbotron">
-        <div id="calendar-container">
-          <div id="calendar-header">
-            <button class="btn btn-info" id="prevMonth">&lt;</button>
-            <span id="calendar-month-year"></span>
-            <button class="btn btn-info" id="nextMonth">&gt;</button>
-          </div>
-          <div id="calendar-dates" class="col-sm-12"></div>
-        </div>
+      <!-- Forum section -->
+      <div id="forum" class="jumbotron">
+        <!-- nav search bar -->
+        <nav class="navbar navbar-dark bg-dark">
+          <h1><a href="#" class="navbar-brand">Question Forum</a></h1>
+          <form class="form-inline">
+            <input type="text" class="form-control" placeholder="Search">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+        </nav>
+        <nav aria-label="breadcrumb">
+          <ol id="forum_breadcrumb_list" class="breadcrumb">
+            <li id="bc_index" class="breadcrumb-item active">Index</li>
+          </ol>
+        </nav>
+        <?php require_once('../php/forum_index.php')?>
       </div>
 
       <!-- Login Modal -->
@@ -143,22 +149,6 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             </div>
           </div>
       </div>
-      <!-- Shift Modal -->
-      <div class="modal fade" id="shiftModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 id="shiftModal-date"></h1>
-            </div>
-            <div class="modal-body" id="shiftModal-list"></div>
-            <div class="modal-footer">
-              <button class="btn btn-default" value="Close" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
