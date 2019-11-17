@@ -132,3 +132,8 @@
 [data-theme="dark"] p {
   color: #eee;
 }
+
+[data-theme="dark"] .card-footer {
+  color: #eee;
+  background-color: #222;
+}
