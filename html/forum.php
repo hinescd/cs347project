@@ -35,7 +35,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
     <link rel="stylesheet" type="text/css" href="../css/dark-mode.css">
 
     <!-- ///Title Pending/// -->
-    <title>TA Homepage</title>
+    <title>TA Help Forum</title>
 
   </head>
   <body>
@@ -129,6 +129,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
           </div>
         </div>
       </div>
+
       <!-- Help Modal -->
       <div class="modal fade" id="helpModal">
           <div class="modal-dialog">
@@ -149,7 +150,61 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             </div>
           </div>
       </div>
-
+    <!-- Ask Modal -->
+    <div class="modal fade" id="askModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1>Ask a question!</h1>
+          </div>
+          <div class="modal-body">
+            <form id="ask_form" method="post" action="">
+              <div class="form-group">
+                <label for="question_title">Question Title</label>
+                <input type="text" class="form-control" id="question_title" aria-describedby="question title" placeholder="Enter title" name="title">
+                <small id="titlehelp" class="form-text text-muted">Please enter the title of your post.</small>
+              </div>
+              <div class="form-group">
+                <textarea id="question_details" rows="4" col="50" name="details" form="ask_form">What's your question?</textarea>
+              </div>
+              <div class="form-group">
+                <label for="question_author">User</label>
+                <input type="text" class="form-control" id="question_author" aria-describedby="question author" placeholder="*Optional: Who's asking?" name="author">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Submit">
+            <button class="btn btn-default" value="Close" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Answer Modal -->
+    <div class="modal fade" id="answerModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1>What's your answer?</h1>
+          </div>
+          <div class="modal-body">
+            <form id="answer_form" method="post" action="">
+              <div class="form-group">
+                <textarea id="answer" rows="4" col="50" name="answer" form="answer_form">What's your answer?</textarea>
+              </div>
+              <div class="form-group">
+                <label for="answer_author">User</label>
+                <input type="text" class="form-control" id="answer_author" aria-describedby="answer author" placeholder="*Optional: Who's answering?" name="author">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Submit">
+            <button class="btn btn-default" value="Close" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

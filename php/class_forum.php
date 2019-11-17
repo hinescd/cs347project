@@ -18,7 +18,7 @@
         $result->close();
     }
 
-    echo("<a href=\"#\" class=\"btn btn-primary\">Ask a Question</a>");
+    echo("<a role=\"ask button\" type=\"button\" data-toggle=\"modal\" data-target=\"#askModal\" class=\"btn btn-primary\">Ask a Question</a>");
     echo("<table class=\"table table-striped table-responsive\">");
     echo("<thead class=\"thead-light\">");
     echo("<tr>");

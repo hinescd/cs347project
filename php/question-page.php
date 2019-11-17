@@ -25,7 +25,7 @@
     echo("</div>"); # End body
     echo("<div class=\"card-footer text-muted\">"); # Start footer
     echo("<p>".$questions[0]['asked']." -- ".$questions[0]['qAuthor']."</p>");
-    echo("<a href=\"#\" class=\"btn btn-primary\">Answer Question</a>");
+    echo("<a role=\"answer button\" type=\"button\" data-toggle=\"modal\" data-target=\"#answerModal\" class=\"btn btn-outline-primary\">Answer Question</a>");
     echo("</div>");
 
     if (!is_null($questions[0]['answerID'])) {
