@@ -29,6 +29,11 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
     <meta http-equiv="X-UA-Compatable" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../css/fullcalendar.css">
@@ -95,7 +100,9 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             <li id="bc_index" class="breadcrumb-item active">Index</li>
           </ol>
         </nav>
+        <div id="forum_container">
         <?php require_once('../php/forum_index.php')?>
+        </div>
       </div>
 
       <!-- Login Modal -->
@@ -158,7 +165,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             <h1>Ask a question!</h1>
           </div>
           <div class="modal-body">
-            <form id="ask_form" method="post" action="">
+            <form id="ask_form">
               <div class="form-group">
                 <label for="question_title">Question Title</label>
                 <input type="text" class="form-control" id="question_title" aria-describedby="question title" placeholder="Enter title" name="title">
@@ -174,12 +181,34 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             </form>
           </div>
           <div class="modal-footer">
-            <input type="submit" class="btn btn-primary" value="Submit">
+            <input type="submit" class="btn btn-primary" value="Submit" name="submit" form="ask_form">
             <button class="btn btn-default" value="Close" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
+    <!-- Below JavaScript is for sending out a ask question submission to the server -->
+    <script>
+    $(document).ready(function () {
+      $('#ask_form').submit(function (e) {
+        e.preventDefault()
+        const askFormData = new FormData(this)
+        var classID = document.querySelector('#class_forum table').getAttribute('id')
+        askFormData.append('forumID', classID)
+
+        fetch ('../php/send_question.php', {
+          method: 'post',
+          body: askFormData,
+        }).then(function (response) {
+          return response.text()
+        }).then(function (text) {
+          document.querySelector('#askModal .modal-body').append(text)
+        }).catch(function (error) {
+          console.log(error)
+        })
+      })
+    })
+    </script>
     <!-- Answer Modal -->
     <div class="modal fade" id="answerModal">
       <div class="modal-dialog">
@@ -188,7 +217,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             <h1>What's your answer?</h1>
           </div>
           <div class="modal-body">
-            <form id="answer_form" method="post" action="">
+            <form id="answer_form">
               <div class="form-group">
                 <textarea id="answer" rows="4" col="50" name="answer" form="answer_form">What's your answer?</textarea>
               </div>
@@ -199,17 +228,35 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             </form>
           </div>
           <div class="modal-footer">
-            <input type="submit" class="btn btn-primary" value="Submit">
+            <input type="submit" class="btn btn-primary" name="submit" value="Submit" form="answer_form">
             <button class="btn btn-default" value="Close" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="../js/calendar.js"></script>
+    <!-- Below JavaScript is for sending out a answer submission to the server -->
+    <script>
+    $(document).ready(function () {
+      $('#answer_form').submit(function (e) {
+        e.preventDefault()
+        const askFormData = new FormData(this)
+        var questionDiv = document.getElementById('question_page').firstElementChild
+        var questionID = questionDiv.getAttribute('id')
+        askFormData.append('questionID', questionID)
+
+        fetch ('../php/send_answer.php', {
+          method: 'post',
+          body: askFormData,
+        }).then(function (response) {
+          return response.text()
+        }).then(function (text) {
+          document.querySelector('#answerModal .modal-body').append(text)
+        }).catch(function (error) {
+          console.log(error)
+        })
+      })
+    })
+    </script>
     <script src="../js/dark-mode-switch.js"></script>
 <?php if(!empty($login_error)):?>
     <script>

@@ -18,7 +18,7 @@
       $result->close();
   }
   # most recent answers to oldest
-    echo("<div class=\"card text-center\">");
+    echo("<div id=\"".$_POST['question']."\" class=\"card text-center\">");
     echo("<div class=\"card-header\"><h5 class=\"card-title\">".$questions[0]['title']."</h5></div>");
     echo("<div class=\"card-body\">"); # Start body
     echo("<p class=\"card-text\">".$questions[0]['details']."</p>");
@@ -40,5 +40,6 @@
         echo("</div>");
       }
     }
+    CloseCon($connection);
   ?>
 </div>

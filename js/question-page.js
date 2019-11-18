@@ -1,4 +1,4 @@
-/* This javascript will handle the user actiopn of selection a
+/* This javascript will handle the user action of selection a
    specific class forum question and loading that question's specific
    page. */
 /* eslint-disable no-undef */
@@ -6,6 +6,7 @@ $(document).ready(function () {
   // console.log('load-specific-forum.js loaded')
   const classIndex = document.getElementById('class_forum')
   const anchors = document.getElementsByClassName('question_anchor')
+  const forumIndex = document.getElementById('forum_index')
   // console.log(anchors)
   /* THIS LOOP ATTACHES EVENT LISTENERS TO THE CLASS LINKS
   IF THOSE LINKS ARE CLICKED IT LOADS THAT FORUM. */

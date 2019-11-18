@@ -4,7 +4,7 @@
     $connection = OpenCon();
 
     # Query classes and store them
-    $classQuesQuery = "SELECT classforum.forumID, className, questionID, title, details, asked, author FROM classforum JOIN question ON classforum.forumID = question.forumID WHERE classforum.forumID = ".$_POST['class']." ORDER BY questionID DESC";
+    $classQuesQuery = "SELECT classforum.forumID, className, questionID, title, details, asked, author FROM classforum JOIN question ON classforum.forumID = question.forumID WHERE classforum.forumID = ".$_POST['class']." ORDER BY asked DESC";
     if ($connection->connect_errno) {
         printf("Connect failed: %s\n", $connection->connect_error);
         exit();
@@ -19,7 +19,7 @@
     }
 
     echo("<a role=\"ask button\" type=\"button\" data-toggle=\"modal\" data-target=\"#askModal\" class=\"btn btn-primary\">Ask a Question</a>");
-    echo("<table class=\"table table-striped table-responsive\">");
+    echo("<table id=\"".$_POST['class']."\" class=\"table table-striped table-responsive\">");
     echo("<thead class=\"thead-light\">");
     echo("<tr>");
     echo("<th class=\"col\">Title</th>");
@@ -40,6 +40,7 @@
         echo("</tr>");
     }
     echo("</tbody>");
+    CloseCon($connection);
     ?>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="../js/question-page.js"></script>
