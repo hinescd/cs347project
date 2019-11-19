@@ -101,4 +101,19 @@ INSERT INTO answer (questionID, answer, answered, author)
 
 INSERT INTO person (name, email, role, class, availability)
   VALUES ('Charlie Hines', 'hinescd@dukes.jmu.edu', 'TA', 'CS159', 'I''m literally never available.'),
+  ('Some TA', 'someta@ta.com', 'TA', 'CS240', 'Unavailable wednesdays'),
   ('Master Manager', 'manager@manager.com', 'MANAGER', NULL, NULL);
+
+INSERT INTO semester (start, end)
+  VALUES ('2019-08-26', '2019-12-13');
+
+INSERT INTO shift (taID, semesterID, start, end)
+  VALUES (1, 1, '2019-11-01 21:00', '2019-11-01 23:00'),
+  (1, 1, '2019-11-08 21:00', '2019-11-08 23:00'),
+  (1, 1, '2019-11-15 21:00', '2019-11-15 23:00'),
+  (1, 1, '2019-11-22 21:00', '2019-11-22 23:00'),
+  (1, 1, '2019-11-29 21:00', '2019-11-29 23:00'),
+  (2, 1, '2019-11-03 17:00', '2019-11-03 20:00'),
+  (2, 1, '2019-11-10 17:00', '2019-11-10 20:00'),
+  (2, 1, '2019-11-17 17:00', '2019-11-17 20:00'),
+  (2, 1, '2019-11-24 17:00', '2019-11-24 20:00');
