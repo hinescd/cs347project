@@ -90,8 +90,8 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
         <!-- nav search bar -->
         <nav class="navbar navbar-dark bg-dark">
           <h1><a href="#" class="navbar-brand">Question Forum</a></h1>
-          <form class="form-inline">
-            <input type="text" class="form-control" placeholder="Search">
+          <form id="search_form" class="form-inline">
+            <input id="search_field" type="text" name="search-string" class="form-control" placeholder="Search">
             <button type="submit" class="btn btn-primary">Search</button>
           </form>
         </nav>
@@ -104,6 +104,72 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
         <?php require_once('../php/forum_index.php')?>
         </div>
       </div>
+      <!-- Below scrip will launch the search functionality -->
+      <script>
+      $(document).ready(function () {
+        $('#search_form').submit(function (e) {
+          e.preventDefault()
+          const forumIndex = document.getElementById('forum_index')
+          $('#search_index').remove()
+          $('#search_results').remove()
+
+          if ($('#question_page').length !== 0) {
+            console.log('Inside initial if')
+            $('#question_index').remove()
+            $('#question_page').remove()
+            $('#class_index').remove()
+            $('#class_forum').remove()
+            $('#forum_breadcrumb_list').append('<li id=\"search_index\" class=\"breadcrumb-item active\">Search Results</li>')
+            document.querySelector('#bc_index a').addEventListener('click', function () {
+              $('#search_index').remove()
+              $('#search_results').remove()
+              $('#bc_index a').remove()
+              $('#bc_index').html('Index')
+              $('#bc_index').addClass('active')
+              forumIndex.style.display = 'block'
+            })
+            $.post('../php/search.php', $(this).serialize(), function (data) {
+              $('#forum_container').append(data)
+            })
+          } else if ($('#class_forum').length !== 0) {
+            console.log('Inside if-else')
+            $('#class_index').remove()
+            $('#class_forum').remove()
+            $('#forum_breadcrumb_list').append('<li id=\"search_index\" class=\"breadcrumb-item active\">Search Results</li>')
+            document.querySelector('#bc_index a').addEventListener('click', function () {
+              $('#search_index').remove()
+              $('#search_results').remove()
+              $('#bc_index a').remove()
+              $('#bc_index').html('Index')
+              $('#bc_index').addClass('active')
+              forumIndex.style.display = 'block'
+            })
+            $.post('../php/search.php', $(this).serialize(), function (data) {
+              $('#forum_container').append(data)
+            })
+          } else {
+            console.log('Inside else')
+            forumIndex.style.display = 'none'
+            $('#bc_index').removeClass('active')
+            $('#bc_index').empty()
+            $('#bc_index').append('<a href="#0">Index</a>')
+            $('#forum_breadcrumb_list').append('<li id=\"search_index\" class=\"breadcrumb-item active\">Search Results</li>')
+            document.querySelector('#bc_index a').addEventListener('click', function () {
+              $('#search_index').remove()
+              $('#search_results').remove()
+              $('#bc_index a').remove()
+              $('#bc_index').html('Index')
+              $('#bc_index').addClass('active')
+              forumIndex.style.display = 'block'
+            })
+            $.post('../php/search.php', $(this).serialize(), function (data) {
+              $('#forum_container').append(data)
+            })
+          }
+          $('#search_field').val('')
+        })
+      })
+      </script>
 
       <!-- Login Modal -->
       <div class="modal fade" id="loginModal">
@@ -145,10 +211,41 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
                 <H1>Help</H1>
               </div>
               <div class="modal-body">
-                <p>Need help? This nifty help pop-up will eventually contain
-                  istructions on how to use the many features of this web app!
-                  For now, this content is to be deternined so all that lies here
-                  is dust and the hope of a built future. . .
+                <p><h1>Welcome to the TA Help Forum!</h1>
+                You are currently on the help forum page.<br>
+                The navigation bar at the top is dynamic and changes to a drop-down
+                menu if the screen shrinks. Click the triple bars in the top right if
+                needed to reveal the navigation menu.<br>
+                <h4>The navigation items include:</h4>
+                <ul>
+                  <li><strong>TA Logo:</strong> Click this to return to the home page.</li>
+                  <li><strong>Help:</strong> click this to display this help dialog.</li>
+                  <li><strong>Help Forum:</strong> This is where you are, clicking will keep you here.</li>
+                  <li><strong>*Hidden* Manager Functions:</strong> available management options for managers.</li>
+                  <li><strong>Login:</strong> display login dialog.</li>
+                  <li><strong>Dark Mode:</strong> White backgrounds hurt your eyes? Try our Dark Mode!</li>
+                </ul>
+
+                <h4>Features of this help forum include:</h4>
+                <ul>
+                  <li><strong>Search Bar:</strong> You can search available question topics using this. A page of
+                  applicable results will be displayed and the breadcrumb updated.</li>
+                  <li><strong>Breadcrumb:</strong> This exists underneath the heading section with the search bar.
+                   This will update as you navigate the forum, clicking a previous item in the breadcrumb
+                   will take to back to that page.</li>
+                  <li><strong>Forum and Title items:</strong> In the main forum body there will be "Forum" and "Title"
+                   items. These are clickable and will take you to the applicable forum/question page, updating the 
+                   breadcrumb.</li>
+                  <li><strong>"Ask a Question" button (On a forum page):</strong> Clicking this button displays the
+                  modal to ask a question. A question topic and question body are required but an author is not. If
+                   no author is provided 'anonymous' will be chosen. *Note* The dialog will not close when
+                   you hit submit but a display message will tell you if the process was successful; close and
+                   refresh the page to see the changes.</li>
+                  <li><strong>"Answer Question" button (On a question page):</strong> Clicking this button displays the
+                  modal to answer a question. An answer is required but an author is not. If no author is provided 
+                  'anonymous' will be chosen. *Note* The dialog will not close when you hit submit but a display message
+                   will tell you if the process was successful; close and refresh the page to see the changes.</li>
+                </ul>
                 </p>
               </div>
               <div class="modal-footer">
@@ -239,14 +336,14 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
     $(document).ready(function () {
       $('#answer_form').submit(function (e) {
         e.preventDefault()
-        const askFormData = new FormData(this)
+        const answerFormData = new FormData(this)
         var questionDiv = document.getElementById('question_page').firstElementChild
         var questionID = questionDiv.getAttribute('id')
-        askFormData.append('questionID', questionID)
+        answerFormData.append('questionID', questionID)
 
         fetch ('../php/send_answer.php', {
           method: 'post',
-          body: askFormData,
+          body: answerFormData,
         }).then(function (response) {
           return response.text()
         }).then(function (text) {
