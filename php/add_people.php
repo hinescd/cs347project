@@ -16,8 +16,10 @@
         if($role == 'TA') {
             $course = $_POST['course'];
             $addPersonQuery = "INSERT INTO person(name, email, role, class) VALUES (\"".$name."\", \"".$email."\", \"".$role."\", \"".$course."\")";
-        } else {
+        } else if($role == 'MANAGER'){
             $addPersonQuery = "INSERT INTO person(name, email, role) VALUES (\"".$name."\", \"".$email."\", \"".$role."\")";
+        } else {
+            Echo "<html><h1>Failed to add person into the database.</h1></html>";
         }
 
         Echo "<html>";
@@ -30,6 +32,8 @@
             Echo "<h1>Failed to add person into the database.</h1>";
         }
         Echo "</html>";
+    } else {
+        Echo "<html><h1>Failed to add person into the database.</h1></html>";
     }
     CloseCon($connection);
 ?>
