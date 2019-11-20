@@ -27,7 +27,7 @@
             Echo "<h2>email: $email</h2>";
             Echo "<h2>role: $role</h2>";
         } else {
-            echo("Failed to add person into the database.");
+            Echo "<h1>Failed to add person into the database.</h1>";
         }
         Echo "</html>";
     }
