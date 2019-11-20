@@ -4,35 +4,40 @@
  * eventual removal later.
  */
 
-function drawCalendar(date, taShifts) {
+function drawCalendar(date) {
   var month = date.getMonth() /* 0-11 */
   var year = date.getFullYear() // year
   var firstDayOfMonth = new Date(year, month, 1)
   var startingDayOfWeek = firstDayOfMonth.getDay() // day of the week the first day of the month is on
   var daysInMonth = new Date(year, month + 1, 0).getDate() // how many days are in the month
 
-  if(taShifts === undefined) {
-    // Get a list of shifts for the month if the function wasn't given any. In the future, we should use fetch to get data from the server here
-    var classes = ['CS101', 'CS149', 'CS159', 'CS240', 'CS261']
-    var taShifts = []
-    for(var i = 0; i < daysInMonth; i++) {
-      for(var j = 0; j < 3; j++) {
-        start = new Date(year, month, i+1, 13+Math.floor(Math.random()*5), 0)
-        end = new Date(year, month, i+1, start.getHours() + 2, 0)
-        clas = Math.floor(Math.random() * classes.length)
-        taShifts.push({class: classes[clas], start: start, end: end})
-      }
-    }
-  }
-
   /* Calendar construction */
-  var calendar = getCalendar(startingDayOfWeek, daysInMonth, taShifts)
-  document.getElementById('calendar-month-year').innerHTML = date.toLocaleString('default', {month: 'long'}) + ' ' + year
-  document.getElementById('calendar-dates').innerHTML = ''
-  document.getElementById('calendar-dates').appendChild(calendar)
+  fetch('../php/list_shifts.php?month=' + encodeURIComponent(date.getMonth()+1) + '&year=' + encodeURIComponent(date.getFullYear()))
+  .then(response => {
+    if(response.ok) {
+      return response.json()
+    } else {
+      return Promise.reject({
+        status: response.status,
+        statusText: response.statusText
+      })
+    }
+  }).then(json => {
+    var calendar = getCalendar(startingDayOfWeek, daysInMonth, json)
+    document.getElementById('calendar-month-year').innerHTML = date.toLocaleString('default', {month: 'long'}) + ' ' + year
+    document.getElementById('calendar-dates').innerHTML = ''
+    document.getElementById('calendar-dates').appendChild(calendar)
+  }).catch(console.log)
 }
 
 function getCalendar (startingDayOfWeek, daysInMonth, taShifts) {
+  taShifts = taShifts.map(shift => {
+    return {
+      displayName: shift.displayName,
+      start: new Date(shift.start),
+      end: new Date(shift.end)
+    }
+  })
   var table = document.createElement('table')
   table.classList.add("calendar")
   var tr = document.createElement('tr')
@@ -75,7 +80,7 @@ function getCalendar (startingDayOfWeek, daysInMonth, taShifts) {
         // And add any shifts for the day
         let shiftsToday = taShifts.filter(shift => shift.start.getDate() == dayOfMonth)
         shiftsToday.forEach(shift => {
-          td.innerHTML += `<br><span class="badge badge-primary">${shift.class}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}</span>`
+          td.innerHTML += `<br><span class="badge badge-primary">${shift.displayName}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}</span>`
         })
 
         // If there are shifts today, populate and show the modal when today's cell is clicked
@@ -127,7 +132,7 @@ function populateShiftModal(shifts) {
 
   // List each shift for the day in the modal
   shifts.forEach(shift => {
-    shiftList.innerHTML += `<li class="list-group-item">${shift.class}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}</li>`
+    shiftList.innerHTML += `<li class="list-group-item">${shift.displayName}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}</li>`
   })
   document.querySelector('#shiftModal-list').appendChild(shiftList)
 }
