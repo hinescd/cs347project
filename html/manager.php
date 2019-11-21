@@ -7,6 +7,13 @@ This page has been developed with the use of bootstrap. The primary factor in
 this decision was adherence to mobile-first development responsiveness.
 However, bootstrap also allows for uniformaty of style and standard as well
 as recently added ARIA accessability features.-->
+<?php
+session_start();
+if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
+  header('HTTP/1.0 403 Forbidden');
+  die('Access denied');
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>
