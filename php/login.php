@@ -23,7 +23,6 @@ function login() {
     $user = $result->fetch_assoc();
     if(!isset($user['password_hash'])) {
       $pass_hash = password_hash($pass, PASSWORD_BCRYPT);
-      echo $pass_hash;
       $set_pass_stmt = $conn->prepare('UPDATE person SET password_hash = ? WHERE personID = ?');
       $set_pass_stmt->bind_param('si', $pass_hash, $user['personID']);
       $set_pass_stmt->execute();
