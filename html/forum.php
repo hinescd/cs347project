@@ -40,7 +40,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
     <link rel="stylesheet" type="text/css" href="../css/dark-mode.css">
 
     <!-- ///Title Pending/// -->
-    <title>TA Help Forum</title>
+    <title>TA Forum</title>
 
   </head>
   <body>
@@ -63,7 +63,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             <li class="nav-item">
               <div class="btn-group" role="group" aria-label="navigation button group">
                   <a role="help button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#helpModal">Help</a>
-                  <a role="forum button" type="button" class="btn btn-primary" href="#">Help Forum</a>
+                  <a role="forum button" type="button" class="btn btn-primary" href="#">Forum</a>
                   <a href="manager.html" role="manager button" type="button" class="btn btn-primary">Manager Functions</a>
               </div>
             </li>
