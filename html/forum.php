@@ -65,7 +65,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
                   <a role="help button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#helpModal">Help</a>
                   <a role="forum button" type="button" class="btn btn-primary" href="#">Forum</a>
 <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'MANAGER'):?>
-                  <a href="manager.html" role="manager button" type="button" class="btn btn-primary">Manager Functions</a>
+                  <a href="manager.php" role="manager button" type="button" class="btn btn-primary">Manager Functions</a>
 <?php endif?>
               </div>
             </li>
