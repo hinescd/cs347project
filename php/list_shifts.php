@@ -18,7 +18,7 @@ if($conn->connect_errno) {
     exit();
 }
 
-$stmt = $conn->prepare('SELECT p.name, p.class, s.start, s.end FROM shift AS s JOIN person AS p ON p.personID = s.taID WHERE MONTH(s.start) = ? AND YEAR(s.start) = ?');
+$stmt = $conn->prepare('SELECT p.personID AS personID, p.name AS name, p.class AS class, s.start, s.end, s.cover_requested, c.personID AS coverer_personID, c.name AS coverer_name, c.class AS coverer_class FROM shift AS s JOIN person AS p ON p.personID = s.taID LEFT JOIN cover ON cover.shiftID = s.shiftID LEFT JOIN person AS c ON cover.covererID = c.personID WHERE MONTH(s.start) = ? AND YEAR(s.start) = ?');
 $stmt->bind_param('ii', $month, $year);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -27,11 +27,21 @@ while($row = $result->fetch_assoc()) {
     $shift = [];
     $shift['start'] = $row['start'];
     $shift['end'] = $row['end'];
-    if(isset($_SESSION['name'])) {
-        $shift['displayName'] = explode(' ', $row['name'])[0] . ' (' . $row['class'] . ')';
-    } else {
-        $shift['displayName'] = $row['class'];
+    $name = $row['name'];
+    $class = $row['class'];
+    $personID = $row['personID'];
+    if(isset($row['coverer_name'])) {
+        $name = $row['coverer_name'];
+        $class = $row['coverer_class'];
+        $personID = $row['coverer_personID'];
     }
+    if(isset($_SESSION['name'])) {
+        $shift['displayName'] = explode(' ', $name)[0] . ' (' . $class . ')';
+    } else {
+        $shift['displayName'] = $class;
+    }
+    $shift['cover_requested'] = $row['cover_requested'];
+    $shift['personID'] = $personID;
     array_push($shifts, $shift);
 }
 $result->close();
