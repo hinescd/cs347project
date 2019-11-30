@@ -57,7 +57,14 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
               </div>
             </li>
           </ul>
+<?php if(isset($_SESSION['personID'])): ?>
+          <form method="post" action="index.php">
+            <input type="hidden" name="action" value="logoff">
+            <input type="submit" class="btn btn-outline-primary my-2 my-sm-0" value="Logoff">
+          </form>
+<?php else: ?>
           <button class="btn btn-outline-primary my-2 my-sm-0" type="login"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></button>
+<?php endif; ?>
           <div class="nav-link">
             <div class="custom-control custom-switch">
               <input type="checkbox" class="custom-control-input" id="darkSwitch">
