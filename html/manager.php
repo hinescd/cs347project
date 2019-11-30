@@ -161,7 +161,17 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
                   <!-- Tab content -->
                 <div id="Semester" class="tabcontent">
                   <h3>Manage Semester</h3>
-                  <p> This is the tab for the Manage Semester functions.</p>
+                  <form action="../php/add_semester.php" method="get">
+                    <div class="form-group">
+                      <label for="sem_start">Start</label>
+                      <input name="start" id="sem_start" type="date">
+                    </div>
+                    <div class="form-group">
+                      <label for="sem_end">End</label>
+                      <input name="end" id="sem_end" type="date">
+                    </div>
+                    <input type="submit" value="Submit">
+                  </form>
                 </div>
                 <div id="Shift" class="tabcontent">
                   <h3>Add Shifts</h3>
