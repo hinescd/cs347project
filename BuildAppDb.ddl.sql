@@ -153,4 +153,5 @@ INSERT INTO shift (taID, semesterID, start, end, cover_requested)
   (3, 1, '2019-12-27 17:00', '2019-12-27 20:00', 0);
 
 INSERT INTO cover (shiftID, covererID, approvedBy)
-  VALUES (3, 2, 4);
+  VALUES (3, 2, 4),
+  (3, 3, NULL);

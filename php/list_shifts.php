@@ -18,7 +18,7 @@ if($conn->connect_errno) {
     exit();
 }
 
-$stmt = $conn->prepare('SELECT p.personID AS personID, p.name AS name, p.class AS class, s.start, s.end, s.cover_requested, c.personID AS coverer_personID, c.name AS coverer_name, c.class AS coverer_class FROM shift AS s JOIN person AS p ON p.personID = s.taID LEFT JOIN cover ON cover.shiftID = s.shiftID LEFT JOIN person AS c ON cover.covererID = c.personID WHERE MONTH(s.start) = ? AND YEAR(s.start) = ?');
+$stmt = $conn->prepare('SELECT p.personID AS personID, p.name AS name, p.class AS class, s.start, s.end, s.cover_requested, c.personID AS coverer_personID, c.name AS coverer_name, c.class AS coverer_class FROM shift AS s JOIN person AS p ON p.personID = s.taID LEFT JOIN cover ON cover.shiftID = s.shiftID AND cover.approvedBy IS NOT NULL LEFT JOIN person AS c ON cover.covererID = c.personID WHERE MONTH(s.start) = ? AND YEAR(s.start) = ?');
 $stmt->bind_param('ii', $month, $year);
 $stmt->execute();
 $result = $stmt->get_result();
