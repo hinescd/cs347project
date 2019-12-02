@@ -301,7 +301,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
         }).then(function (response) {
           return response.text()
         }).then(function (text) {
-          document.querySelector('#askModal .modal-body').append(text)
+          alert(text)
         }).catch(function (error) {
           console.log(error)
         })
@@ -349,7 +349,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
         }).then(function (response) {
           return response.text()
         }).then(function (text) {
-          document.querySelector('#answerModal .modal-body').append(text)
+          alert(text)
         }).catch(function (error) {
           console.log(error)
         })
