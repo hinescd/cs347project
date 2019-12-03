@@ -237,7 +237,7 @@ $conn->close();
 ?>
                         </select>
                       </div>
-                      <input type="submit">
+                      <input type="submit" value="Create shift">
                     </form>
                 </div>
                 <div id="Cover" class="tabcontent">
