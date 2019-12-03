@@ -158,19 +158,13 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
               </div>
               <div id="collapseThree" class="collapse multi-collapse" aria-labelledby="headingThree">
                 <div class="card-body">
-                 <!-- Tab links -->
-                <!--<div class="tab">
-                  <button class="tablinks" onclick="openTab(event, 'Semester')">Manage Semester</button>
-                  <button class="tablinks" onclick="openTab(event, 'Shift')">Add Shifts</button>
-                  <button class="tablinks" onclick="openTab(event, 'Cover')">Approve Covers</button>
-                  <button class="tablinks" onclick="openTab(event, 'Management')">Student Management</button>
-                </div>-->
+                <!-- Tab links -->
                 <ul class="nav nav-tabs">
                   <li class="nav-item active"><a class="nav-link" href="#Semester" data-toggle="tab">Manage Semester</a></li>
                   <li class="nav-item"><a class="nav-link" href="#Shift" data-toggle="tab">Add Shifts</a></li>
                   <li class="nav-item"><a class="nav-link" href="#Cover" data-toggle="tab">Approve Covers</a></li>
                 </ul>
-                  <!-- Tab content -->
+                <!-- Tab content -->
                 <div class="tab-content">
                   <div id="Semester" class="tab-pane active">
                     <h3>Manage Semester</h3>
@@ -251,11 +245,6 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
                     <p>This is the tab for the Approve Covers functions</p>
                   </div>
                 </div>
-
-                <!--<div id="Management" class="tabcontent">
-                  <h3>Student Management</h3>
-                  <p>This is the tab for the Student Management functions</p>
-                </div>-->
                 </div>
                </div>
             </div>
