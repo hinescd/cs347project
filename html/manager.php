@@ -300,6 +300,98 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
                           </div>
                         </div>
                       </div>
+                      <!-- Geoffrey Wright: Added some forum stats for you. :) -->
+                      <!-- Drop into php to query some stats from the database. -->
+                      <?php
+                        require_once('../php/db_connection.php');
+                        $connection = OpenCon();
+                        
+                        $query = ""; #for querys
+                        $result_table = array(); # for processing the result
+
+                        if ($connection->connect_errno) {
+                          printf("Connect failed: %s\n", $connection->connect_error);
+                          exit();
+                        }
+
+                        echo("<br><h4>Forum Breakdown</h4>");
+                        echo("<table class=\"table table-striped table-dark\">");
+                        echo("<thead>");
+                        echo("<tr>");
+                        echo("<th scope=\"col\">Statistic</th>");
+                        echo("<th scope=\"col\">Result</th>");
+                        echo("</tr>");
+                        echo("</thead>");
+                        echo("<tbody>");
+                        echo("<tr>");
+                        echo("<th scope=\"row\">Total class forums registered</th>");
+                        $query = "SELECT COUNT(forumID) AS total FROM classforum";
+                        if ($result = $connection->query($query)) {
+                          while($item = $result->fetch_assoc()) {
+                            $result_table[] = $item;
+                          }
+                          $result->close();
+                        }
+                        echo("<td>".$result_table[0]['total']."</td>");
+                        echo("</tr>");
+                        echo("<tr>");
+                        echo("<th scope=\"row\">Total questions asked</th>");
+                        $query = "SELECT COUNT(questionID) AS total FROM question";
+                        $result_table = array(); #reset array
+                        if ($result = $connection->query($query)) {
+                          while($item = $result->fetch_assoc()) {
+                            $result_table[] = $item;
+                          }
+                          $result->close();
+                        }
+                        echo("<td>".$result_table[0]['total']."</td>");
+                        echo("</tr>");
+                        echo("<tr>");
+                        echo("<th scope=\"row\">Total answers given</th>");
+                        $query = "SELECT COUNT(answerID) AS total FROM answer";
+                        $result_table = array(); #reset array
+                        if ($result = $connection->query($query)) {
+                          while($item = $result->fetch_assoc()) {
+                            $result_table[] = $item;
+                          }
+                          $result->close();
+                        }
+                        echo("<td>".$result_table[0]['total']."</td>");
+                        echo("</tr>");
+                        echo("<tr>");
+                        echo("<th scope=\"row\">Most recently asked question</th>");
+                        $query = "SELECT className, title, asked, author FROM classforum RIGHT JOIN question ON classforum.forumID = question.forumID ORDER BY question.asked DESC LIMIT 1";
+                        $result_table = array(); #reset array
+                        if ($result = $connection->query($query)) {
+                          while($item = $result->fetch_assoc()) {
+                            $result_table[] = $item;
+                          }
+                          $result->close();
+                        }
+                        echo("<td>Class: ".$result_table[0]['className']."<span style=\"padding-left:2em\">Title: ".$result_table[0]['title']."</span><span style=\"padding-left:2em\">Asked: ".$result_table[0]['asked']."</span><span style=\"padding-left:2em\">Author: ".$result_table[0]['author']."</span></td>");
+                        echo("</tr>");
+                        echo("</tbody>");
+                        echo("</table>");
+
+                        echo("<h4>Questions that have yet to be answered</h4>");
+                        echo("<table class=\"table table-striped table-dark\">");
+                        echo("<tbody>");
+                        $query = "SELECT a.className, b.title, b.asked, b.qauthor FROM classforum a RIGHT JOIN (SELECT q.questionID, q.forumID, q.title, q.asked,q.author as qauthor, an.answer FROM question q LEFT JOIN answer an ON q.questionID = an.questionID WHERE an.answer IS NULL) b ON a.forumID = b.forumID ORDER BY a.className";
+                        $result_table = array(); #reset array
+                        if ($result = $connection->query($query)) {
+                          while($item = $result->fetch_assoc()) {
+                            $result_table[] = $item;
+                          }
+                          $result->close();
+                        }
+                        for ($i = 0; $i < count($result_table); $i++) {
+                          echo("<tr><td>"."Class: ".$result_table[$i]['className']." <span style=\"padding-left:2em\">Title: ".$result_table[$i]['title']."</span><span style=\"padding-left:2em\">Asked: ".$result_table[$i]['asked']."</span><span style=\"padding-left:2em\">Author: ".$result_table[$i]['qauthor']."</span></td></tr>");
+                        }
+                        echo("</tbody>");
+                        echo("</table>");
+
+                        CloseCon($connection);
+                      ?>
                   </div>
                 </div>
               </div>
