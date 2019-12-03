@@ -132,14 +132,14 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
               </div>
               <div id="collapseTwo" class="collapse multi-collapse" aria-labelledby="headingTwo">
                 <div class="card-body">
-                  <form>
+                  <form method="post" action="../php/remove_people.php">
                     <div class="form-group">
                       <label for="emailInput">Email of person to remove</label>
-                      <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
+                      <input type="email" class="form-control" id="emailInput" placeholder="Enter email" name="email">
                     </div>
                     <div class="form-group">
                       <label for="passInput">Confirm your password</label>
-                      <input type="password" class="form-control" id="passInput" placeholder="Enter password">
+                      <input type="password" class="form-control" id="passInput" placeholder="Enter password" name="password">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">remove</button>
                   </form>
