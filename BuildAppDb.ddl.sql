@@ -64,7 +64,7 @@ CREATE TABLE shift
   end DATETIME NOT NULL,
   cover_requested BOOLEAN NOT NULL DEFAULT 0,
   CONSTRAINT Shift_shiftID_pk PRIMARY KEY (shiftID),
-  CONSTRAINT Shift_taID_fk FOREIGN KEY (taID) REFERENCES person (personID)
+  CONSTRAINT Shift_taID_fk FOREIGN KEY (taID) REFERENCES person (personID) ON DELETE CASCADE
 );
 
 CREATE TABLE cover
@@ -74,8 +74,8 @@ CREATE TABLE cover
   approvedBy INT,
   CONSTRAINT Cover_shiftIDcovererID_pk PRIMARY KEY (shiftID, covererID),
   CONSTRAINT Cover_shiftID_fk FOREIGN KEY (shiftID) REFERENCES shift (shiftID),
-  CONSTRAINT Cover_covererID FOREIGN KEY (covererID) REFERENCES person (personID),
-  CONSTRAINT Cover_approvedBy FOREIGN KEY (approvedBy) REFERENCES person (personID)
+  CONSTRAINT Cover_covererID FOREIGN KEY (covererID) REFERENCES person (personID) ON DELETE CASCADE,
+  CONSTRAINT Cover_approvedBy FOREIGN KEY (approvedBy) REFERENCES person (personID) ON DELETE CASCADE
 );
 
 INSERT INTO classforum (className)
