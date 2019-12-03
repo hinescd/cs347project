@@ -35,7 +35,11 @@ function getCalendar (startingDayOfWeek, daysInMonth, taShifts) {
     return {
       displayName: shift.displayName,
       start: new Date(shift.start),
-      end: new Date(shift.end)
+      end: new Date(shift.end),
+      isMine: shift.isMine,
+      shiftID: shift.shiftID,
+      cover_requested: shift.cover_requested > 0,
+      covered: shift.covered
     }
   })
   var table = document.createElement('table')
@@ -132,7 +136,44 @@ function populateShiftModal(shifts) {
 
   // List each shift for the day in the modal
   shifts.forEach(shift => {
-    shiftList.innerHTML += `<li class="list-group-item">${shift.displayName}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}</li>`
+    var shiftHTML = `<li class="list-group-item">${shift.displayName}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}`
+    if(shift.isMine) {
+      if(shift.cover_requested) {
+        shiftHTML += '<button class="btn btn-primary float-right" disabled>Cover requested</button>'
+      } else {
+        shiftHTML += `<button class="btn btn-primary float-right" onclick="requestCover(${shift.shiftID})">Request cover</button>`
+      }
+    } else if(isTA && shift.cover_requested && !shift.covered) {
+      shiftHTML += `<button class="btn btn-primary float-right" onclick="cover(${shift.shiftID})">Cover</button>`
+    }
+    shiftHTML += '</li>'
+    shiftList.innerHTML += shiftHTML
   })
   document.querySelector('#shiftModal-list').appendChild(shiftList)
+}
+
+function requestCover(shiftID) {
+  url = '/php/request_cover.php?shift=' + shiftID;
+  fetch(url)
+  .then(response => {
+    if(response.ok) {
+      var coverButton = document.querySelector('#shiftModal-list button')
+      coverButton.innerHTML = 'Cover requested'
+      coverButton.disabled = true
+    } else {
+      alert('Could not request cover')
+    }
+  })
+}
+
+function cover(shiftID) {
+  url = '/php/cover.php?shift=' + shiftID;
+  fetch(url)
+  .then(response => {
+    if(response.ok) {
+      alert('Request to cover submitted')
+    } else {
+      alert('Could not request to cover')
+    }
+  })
 }

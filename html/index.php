@@ -16,7 +16,6 @@ if(isset($_POST['action']) && $_POST['action'] === 'login') {
 }
 if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
   session_unset();
-  session_destroy();
 }
 ?>
 
@@ -39,6 +38,9 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
 
   </head>
   <body>
+    <script>
+      isTA = <?php echo isset($_SESSION['role']) && $_SESSION['role'] === 'TA' ? 'true' : 'false'; ?>
+    </script>
     <!--Webpage body -->
     <div class="container-fluid">
       <!-- Page Header -->
