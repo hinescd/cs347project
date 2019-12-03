@@ -182,34 +182,63 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
                 </div>
                 <div id="Shift" class="tabcontent">
                   <h3>Add Shifts</h3>
-                    <div class="form-group">
-                      <label for="start">Start Shift</label>
-                        <input type="date" id="start" name="trip-start" value="2019-11-20" min="2019-11-01" max="2021-12-31">
-                    </div>
-                    <div class="form-group">
-                      <label for="end">End Shift</label>
-                      <input type="date" id="end" name="trip-start" value="2019-11-20" min="2019-11-01" max="2021-12-31">
-                    </div>
-                    <div class="dropdown">
-                    <label class="form-check-label" for="exampleRadios2"> Which shift are you requesting? </label>
-                    <div class="dropdown">
-                      <button class="dropbtn">Select Option</button>
-                      <div class="dropdown-content">
-                        <a href="#">5:00pm - 7:00pm </a>
-                        <a href="#">7:00pm - 9:00pm </a>
-                        <a href="#">10:00pm - 11:59pm </a>
+                    <form action="/php/add_shift.php" method="get">
+                      <div class="form-group">
+                        <label for="addshift-semester">Semester</label>
+                        <select name="semester" id="addshift-semester" required>
+<?php
+require_once('../php/db_connection.php');
+$conn = OpenCon();
+$stmt = $conn->prepare('SELECT semesterID, start, end FROM semester');
+$stmt->execute();
+$result = $stmt->get_result();
+while($row = $result->fetch_assoc()) {
+  $start = str_replace('-', '/', explode(' ', $row['start'])[0]);
+  $end = str_replace('-', '/', explode(' ', $row['end'])[0]);
+  echo '<option value="' . $row['semesterID'] . '">' . $start . ' - ' . $end . '</option>';
+}
+$result->close();
+$stmt->close();
+$conn->close();
+?>
+                        </select>
                       </div>
-                    <div>
-                    <button class="dropbtn"> Reoccurring? </button>
-                      <div class="dropdown-content">
-                        <a href="#">Yes</a>
-                        <a href="#">No</a>
+                      <div class="form-group">
+                        <label for="addshift-date">Date</label>
+                        <input type="date" name="date" id="addshift-date" required>
                       </div>
-                    <div>
-                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                    </div>
-                    </div>
-                    </div>
+                      <div class="form-group">
+                        <label for="addshift-start">Start time</label>
+                        <input type="time" name="start" id="addshift-start" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="addshift-end">End time</label>
+                        <input type="time" name="end" id="addshift-end" required>
+                      </div>
+                      <div class="form-group">
+                        <input type="checkbox" name="repeats" id="addshift-repeats" checked>
+                        <label for="addshift-repeats">Repeats weekly</label>
+                      </div>
+                      <div class="form-group">
+                        <label for="addshift-ta">TA</label>
+                        <select name="ta" id="addshift-ta" required>
+<?php
+require_once('../php/db_connection.php');
+$conn = OpenCon();
+$stmt = $conn->prepare('SELECT personID, name FROM person WHERE role = \'TA\'');
+$stmt->execute();
+$result = $stmt->get_result();
+while($row = $result->fetch_assoc()) {
+  echo '<option value="' . $row['personID'] . '">' . $row['name'] . '</option>';
+}
+$result->close();
+$stmt->close();
+$conn->close();
+?>
+                        </select>
+                      </div>
+                      <input type="submit">
+                    </form>
                 </div>
                 <div id="Cover" class="tabcontent">
                   <h3>Approve Covers</h3>
