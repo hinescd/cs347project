@@ -16,7 +16,7 @@
             $removePersonQuery = $connection->prepare("DELETE FROM person WHERE email = ?");
             $removePersonQuery->bind_param("s", $email);
             Echo "<html>";
-            if ($removePersonQuery->execute() or die($removePersonQuery->error)) {
+            if ($removePersonQuery->execute()) {
                 Echo "<h1>Person removed:</h1>";
                 Echo "<h2>Name: placeholder</h2>";
                 Echo "<h2>email: $email</h2>";
