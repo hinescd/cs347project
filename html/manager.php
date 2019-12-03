@@ -159,96 +159,103 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
               <div id="collapseThree" class="collapse multi-collapse" aria-labelledby="headingThree">
                 <div class="card-body">
                  <!-- Tab links -->
-                <div class="tab">
+                <!--<div class="tab">
                   <button class="tablinks" onclick="openTab(event, 'Semester')">Manage Semester</button>
                   <button class="tablinks" onclick="openTab(event, 'Shift')">Add Shifts</button>
                   <button class="tablinks" onclick="openTab(event, 'Cover')">Approve Covers</button>
                   <button class="tablinks" onclick="openTab(event, 'Management')">Student Management</button>
-                </div>
+                </div>-->
+                <ul class="nav nav-tabs">
+                  <li class="nav-item active"><a class="nav-link" href="#Semester" data-toggle="tab">Manage Semester</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#Shift" data-toggle="tab">Add Shifts</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#Cover" data-toggle="tab">Approve Covers</a></li>
+                </ul>
                   <!-- Tab content -->
-                <div id="Semester" class="tabcontent">
-                  <h3>Manage Semester</h3>
-                  <form action="../php/add_semester.php" method="get">
-                    <div class="form-group">
-                      <label for="sem_start">Start</label>
-                      <input name="start" id="sem_start" type="date">
-                    </div>
-                    <div class="form-group">
-                      <label for="sem_end">End</label>
-                      <input name="end" id="sem_end" type="date">
-                    </div>
-                    <input type="submit" value="Submit">
-                  </form>
-                </div>
-                <div id="Shift" class="tabcontent">
-                  <h3>Add Shifts</h3>
-                    <form action="/php/add_shift.php" method="get">
+                <div class="tab-content">
+                  <div id="Semester" class="tab-pane active">
+                    <h3>Manage Semester</h3>
+                    <form action="../php/add_semester.php" method="get">
                       <div class="form-group">
-                        <label for="addshift-semester">Semester</label>
-                        <select name="semester" id="addshift-semester" required>
-<?php
-require_once('../php/db_connection.php');
-$conn = OpenCon();
-$stmt = $conn->prepare('SELECT semesterID, start, end FROM semester');
-$stmt->execute();
-$result = $stmt->get_result();
-while($row = $result->fetch_assoc()) {
-  $start = str_replace('-', '/', explode(' ', $row['start'])[0]);
-  $end = str_replace('-', '/', explode(' ', $row['end'])[0]);
-  echo '<option value="' . $row['semesterID'] . '">' . $start . ' - ' . $end . '</option>';
-}
-$result->close();
-$stmt->close();
-$conn->close();
-?>
-                        </select>
+                        <label for="sem_start">Start</label>
+                        <input name="start" id="sem_start" type="date">
                       </div>
                       <div class="form-group">
-                        <label for="addshift-date">Date</label>
-                        <input type="date" name="date" id="addshift-date" required>
+                        <label for="sem_end">End</label>
+                        <input name="end" id="sem_end" type="date">
                       </div>
-                      <div class="form-group">
-                        <label for="addshift-start">Start time</label>
-                        <input type="time" name="start" id="addshift-start" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="addshift-end">End time</label>
-                        <input type="time" name="end" id="addshift-end" required>
-                      </div>
-                      <div class="form-group">
-                        <input type="checkbox" name="repeats" id="addshift-repeats" checked>
-                        <label for="addshift-repeats">Repeats weekly</label>
-                      </div>
-                      <div class="form-group">
-                        <label for="addshift-ta">TA</label>
-                        <select name="ta" id="addshift-ta" required>
-<?php
-require_once('../php/db_connection.php');
-$conn = OpenCon();
-$stmt = $conn->prepare('SELECT personID, name FROM person WHERE role = \'TA\'');
-$stmt->execute();
-$result = $stmt->get_result();
-while($row = $result->fetch_assoc()) {
-  echo '<option value="' . $row['personID'] . '">' . $row['name'] . '</option>';
-}
-$result->close();
-$stmt->close();
-$conn->close();
-?>
-                        </select>
-                      </div>
-                      <input type="submit" value="Create shift">
+                      <input type="submit" value="Submit">
                     </form>
-                </div>
-                <div id="Cover" class="tabcontent">
-                  <h3>Approve Covers</h3>
-                  <p>This is the tab for the Approve Covers functions</p>
+                  </div>
+                  <div id="Shift" class="tab-pane">
+                    <h3>Add Shifts</h3>
+                      <form action="/php/add_shift.php" method="get">
+                        <div class="form-group">
+                          <label for="addshift-semester">Semester</label>
+                          <select name="semester" id="addshift-semester" required>
+  <?php
+  require_once('../php/db_connection.php');
+  $conn = OpenCon();
+  $stmt = $conn->prepare('SELECT semesterID, start, end FROM semester');
+  $stmt->execute();
+  $result = $stmt->get_result();
+  while($row = $result->fetch_assoc()) {
+    $start = str_replace('-', '/', explode(' ', $row['start'])[0]);
+    $end = str_replace('-', '/', explode(' ', $row['end'])[0]);
+    echo '<option value="' . $row['semesterID'] . '">' . $start . ' - ' . $end . '</option>';
+  }
+  $result->close();
+  $stmt->close();
+  $conn->close();
+  ?>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="addshift-date">Date</label>
+                          <input type="date" name="date" id="addshift-date" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="addshift-start">Start time</label>
+                          <input type="time" name="start" id="addshift-start" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="addshift-end">End time</label>
+                          <input type="time" name="end" id="addshift-end" required>
+                        </div>
+                        <div class="form-group">
+                          <input type="checkbox" name="repeats" id="addshift-repeats" checked>
+                          <label for="addshift-repeats">Repeats weekly</label>
+                        </div>
+                        <div class="form-group">
+                          <label for="addshift-ta">TA</label>
+                          <select name="ta" id="addshift-ta" required>
+  <?php
+  require_once('../php/db_connection.php');
+  $conn = OpenCon();
+  $stmt = $conn->prepare('SELECT personID, name FROM person WHERE role = \'TA\'');
+  $stmt->execute();
+  $result = $stmt->get_result();
+  while($row = $result->fetch_assoc()) {
+    echo '<option value="' . $row['personID'] . '">' . $row['name'] . '</option>';
+  }
+  $result->close();
+  $stmt->close();
+  $conn->close();
+  ?>
+                          </select>
+                        </div>
+                        <input type="submit" value="Create shift">
+                      </form>
+                  </div>
+                  <div id="Cover" class="tab-pane">
+                    <h3>Approve Covers</h3>
+                    <p>This is the tab for the Approve Covers functions</p>
+                  </div>
                 </div>
 
-                <div id="Management" class="tabcontent">
+                <!--<div id="Management" class="tabcontent">
                   <h3>Student Management</h3>
                   <p>This is the tab for the Student Management functions</p>
-                </div>
+                </div>-->
                 </div>
                </div>
             </div>
