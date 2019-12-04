@@ -8,41 +8,49 @@ Below is the project overview:
 
 This web application seeks to meet the needs of the James Madison University’s TA (Teacher Assistant) program. Upon completion of this project the web application will provide the functionality described within this document. In summary, program managers will be able to add/remove TA’s from the system, update semesters, approve TA covers. TA’s will have the ability to add and remove TA sessions with students and request covers for their times. Standard end-users will be able to ask anonymous(?) questions to be answered, request times for assistance and view scheduled TA hours. Also for those managing the software data analytics will be collected for further use.
 
+# How to run and other quirks of this project
+
+This project was not deloyed to a remote system. Doing so should not be too complicated, however this project was created, tested, and run using XAMMP suite of tools run locally.
+
+Included in this project directory is a ddl.sql file titled "BuildAppDb" with XAMMP installed this ddl file needs to be dropped into the XAMMP directory and "sourced" via MySQL console or, if the function exists in phpMyAdmin, phpMyAdmin. This will construct the database with the required structure and insert test data and users. Finally in the XAMPP directory the httpd.conf file will need to be modified to make the server root point to the project directory.
+
+With these things in place you should be able to bring up a web-browser and enter "localhost" to be directed to the web application.
+
 # Features
 
 ## Required
 
 * Onboarding
   * Roles:
-    * TA (Can see names on calendar, request covers, sign up to fill a requested cover)
-    * Manager (Can add new TAs, define semesters, schedule shifts, approve covers)
+    * TA (Can see names on calendar, request covers, sign up to fill a requested cover) **completed**
+    * Manager (Can add new TAs, define semesters, schedule shifts, approve covers) **completed**
   * Register with system
-    * Name
-    * Email
+    * Name **completed**
+    * Email **completed**
   * Solicit preferences
-    * Scheduling
-    * Courses
-    * Min/max hrs/wk?
+    * Scheduling **unimplemented**
+    * Courses **completed**
+    * Min/max hrs/wk? **unimplemented**
 * Login
-  * Based on info from registration
+  * Based on info from registration **completed**
 * Define Semester
-  * Set TA lab dates/hours
+  * Set TA lab dates/hours **completed**
 * Manually Schedule Semester
-  * Give Manager a UI:
+  * Give Manager a UI: **completed**
     * Looking at capabilities, preferences, semester definition
 * Swap duties
-  * Request a cover
-  * Queue potential cover-ers
-  * Manager approval of a cover makes it official
+  * Request a cover **completed**
+  * Queue potential cover-ers **completed**
+  * Manager approval of a cover makes it official **completed**
 * Show calendar
-  * Different views: public doesn’t show TA names
+  * Different views: public doesn’t show TA names **completed**
 * Collect data
-  * Student sign in to office hours
+  * Student sign in to office hours **completed**
 ## Additional
-* Showing TA arrival/departure times on calendar
-* (Anonymous?) question board
-* Email notifications for cover approvals
-* Dark mode toggle
+* Showing TA arrival/departure times on calendar **completed**
+* (Anonymous?) question board **completed**
+* Email notifications for cover approvals **unimplemented**
+* Dark mode toggle **completed**
 
 # Plan
 * Milestone 1 (Oct 24)
@@ -87,3 +95,15 @@ This web application seeks to meet the needs of the James Madison University’s
 * Do we want a single-page webapp or multiple pages?
 * Robert Verdisco (Look into website interaction with databases)
 * Learn PHP(Everyone)
+
+# SUMMARY OF COMPLETION
+As in all things design there were questions and design changes throughout our project process. This led to certain features being dropped,
+unimplemented, or implemented in ways that were not original to the plan. Some of these features include:
+
+* The forum being uncoupled from the landing page. It was discovered that this caused problems in the implementation of the home page.
+Specifically the handling of the loading of the forum from within another webpage. The forum was decoupled, but legacy design flaws still
+shine through. Given time it would be benificial to create "forumindex.php", "classpage.php", "forumpage.php", and "searchpage.php" templates
+that could navigate and reload on an individual basis.
+* Notification via email was scrapped as challenges that were presented in implementing other functions were deemed more pressing.
+* In the "solicit preferences" section, shecduling and min/max hours a week were not implemented only in that managers set scheduals for TAs
+This puts the onace on the Managers to add schedualed hours to the system that meet TA preferences.
