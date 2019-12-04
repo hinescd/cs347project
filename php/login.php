@@ -30,12 +30,14 @@ function login() {
       $_SESSION['name'] = $user['name'];
       $_SESSION['personID'] = $user['personID'];
       $_SESSION['role'] = $user['role'];
+      $_SESSION['password_hash'] = $pass_hash;
       $stmt->close();
       $conn->close();
     } else if(password_verify($pass, $user['password_hash'])) {
       $_SESSION['name'] = $user['name'];
       $_SESSION['personID'] = $user['personID'];
       $_SESSION['role'] = $user['role'];
+      $_SESSION['password_hash'] = $user['password_hash'];
       $stmt->close();
       $conn->close();
       return;
