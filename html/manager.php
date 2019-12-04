@@ -242,7 +242,31 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
                   </div>
                   <div id="Cover" class="tab-pane">
                     <h3>Approve Covers</h3>
-                    <p>This is the tab for the Approve Covers functions</p>
+                    <?php
+                      require_once('../php/db_connection.php');
+                      $conn = OpenCon();
+                      // Gets a list of shifts that have no approved covers, but do have potential covers
+                      $stmt = $conn->prepare('select s.shiftID, s.start, s.end, p.personID, p.name, p.class FROM shift AS s JOIN person AS p ON p.personID = s.taID JOIN cover AS c ON c.shiftID = s.shiftID WHERE s.cover_requested GROUP BY s.shiftID HAVING count(c.approvedBy) = 0');
+                      $stmt->execute();
+                      $result = $stmt->get_result();
+                      if($result->num_rows === 0) {
+                        echo '<p>No covers to approve</p>';
+                      } else {
+                        while($shift = $result->fetch_assoc()) {
+                          $start = strtotime($shift['start']);
+                          $end = strtotime($shift['end']);
+                          echo '<p>' . $shift['name'] . '\'s shift on ' . date('m/d/Y', $start) . ' from ' . date('g:i a', $start) . ' to ' . date('g:i a', $end) . ': ';
+                          $stmt = $conn->prepare('SELECT c.covererID, p.name FROM cover AS c JOIN person AS p ON p.personID = c.covererID WHERE c.shiftID = ?');
+                          $stmt->bind_param('i', $shift['shiftID']);
+                          $stmt->execute();
+                          $covers = $stmt->get_result();
+                          while($cover = $covers->fetch_assoc()) {
+                            echo '<button class="btn btn-primary coverFor' . $shift['shiftID'] . '" onclick="approveCover(' . $shift['shiftID'] . ', ' . $cover['covererID'] . ')">' . $cover['name'] . '</button>';
+                          }
+                          echo '</p>';
+                        }
+                      }
+                    ?>
                   </div>
                 </div>
                 </div>
