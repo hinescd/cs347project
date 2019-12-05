@@ -135,11 +135,14 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
                 <H1>Help</H1>
               </div>
               <div class="modal-body">
-                <p>Need help? This nifty help pop-up will eventually contain
-                  istructions on how to use the many features of this web app!
-                  For now, this content is to be deternined so all that lies here
-                  is dust and the hope of a built future. . .
-                </p>
+                <p>Welcome to the JMU CS TA page! The calendar below shows which TAs will be in lab and when. The forum can be used to ask and answer questions if you feel you don't need in-person help.</p>
+                <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'TA'): ?>
+                <p>As a TA, you can click on calendar dates you have a shift on and click on the request a cover button by your shift to request for another TA to fill in for you during that shift. If someone else has requested a cover for their shift, you can click a button to sign up to cover their shift. Once a manager approves your cover, you'll be all set to cover the shift.</p>
+                <?php elseif(isset($_SESSION['role']) && $_SESSION['role'] === 'MANAGER'): ?>
+                <p>As a manager, you can use the manager functions page to organize various aspects of the TA system, such as adding and removing TAs or managers, defining semesters, creating shifts, and approving covers.</p>
+                <?php else: ?>
+                <p>If you are a TA or a manager and do not have an account set up, speak with a current manager and they will be able to enter your information into the system. Once they set up an account for you, the password you use when logging in for the first time will be set up as your password for all future logins.</p>
+                <?php endif ?>
               </div>
               <div class="modal-footer">
                   <button class="btn btn-default" value="Close" data-dismiss="modal">Close</button>

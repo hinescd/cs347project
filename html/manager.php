@@ -485,11 +485,7 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
                 <H1>Help</H1>
               </div>
               <div class="modal-body">
-                <p>Need help? This nifty help pop-up will eventually contain
-                  istructions on how to use the many features of this web app!
-                  For now, this content is to be deternined so all that lies here
-                  is dust and the hope of a built future. . .
-                </p>
+                <p>You can use this page to add or remove TAs and managers, define semesters, create shifts, and approve covers. Use the different sections of the page to fill out forms for each of these.</p>
               </div>
               <div class="modal-footer">
                   <button class="btn btn-default" value="Close" data-dismiss="modal">Close</button>
