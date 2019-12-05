@@ -285,7 +285,6 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
                 </div>
                 <div id="collapseFour" class="collapse multi-collapse" aria-labelledby="headingFour">
                   <div class="card-body">
-                    Statistics content
                       <div class="wrapper">
                       <div class="panel">
                         <div class="panel-header">
