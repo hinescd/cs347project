@@ -84,7 +84,9 @@ function getCalendar (startingDayOfWeek, daysInMonth, taShifts) {
         // And add any shifts for the day
         let shiftsToday = taShifts.filter(shift => shift.start.getDate() == dayOfMonth)
         shiftsToday.forEach(shift => {
-          td.innerHTML += `<br><span class="badge badge-primary">${shift.displayName}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}</span>`
+          var badgetype = shift.isMine ? 'badge-danger' : 'badge-primary'
+          console.log(shift.isMine, badgetype)
+          td.innerHTML += `<br><span class="badge ${badgetype}">${shift.displayName}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}</span>`
         })
 
         // If there are shifts today, populate and show the modal when today's cell is clicked
