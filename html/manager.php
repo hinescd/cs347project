@@ -262,7 +262,7 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
                           $stmt->execute();
                           $covers = $stmt->get_result();
                           while($cover = $covers->fetch_assoc()) {
-                            echo '<button class="btn btn-primary coverFor' . $shift['shiftID'] . '" onclick="approveCover(' . $shift['shiftID'] . ', ' . $cover['covererID'] . ')">' . $cover['name'] . '</button>';
+                            echo '<button class="btn btn-primary coverFor' . $shift['shiftID'] . '" onclick="approveCover(' . $shift['shiftID'] . ', ' . $cover['covererID'] . ')">' . $cover['name'] . '</button> ';
                           }
                           echo '</p>';
                         }
