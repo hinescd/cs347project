@@ -84,7 +84,7 @@
         $numOfP = $postNum[$x]['numPosts'];
         echo("<tr id=\"".$forumID."\">");
         echo("<td><h3 class=\"h5\"><a class=\"class_anchor\" href=\"#0\">".$className."</a></h3></td>");
-        echo("<td><div><h4 style=\"inline\" class=\"h6\">".$qTitle."</h4>".$author." -- ".$asked."<div></td>");
+        echo("<td><div><h4 class=\"h6\">".$qTitle."</h4>".$author." -- ".$asked."</div></td>");
         echo("<td><div>".$numOfQ."</div></td>");
         echo("<td><div>".$numOfP."</div></td>");
         echo("</tr>");

@@ -85,7 +85,6 @@ function getCalendar (startingDayOfWeek, daysInMonth, taShifts) {
         let shiftsToday = taShifts.filter(shift => shift.start.getDate() == dayOfMonth)
         shiftsToday.forEach(shift => {
           var badgetype = shift.isMine ? 'badge-danger' : 'badge-primary'
-          console.log(shift.isMine, badgetype)
           td.innerHTML += `<br><span class="badge ${badgetype}">${shift.displayName}: ${shift.start.toLocaleString('default', options)}-${shift.end.toLocaleString('default', options)}</span>`
         })
 

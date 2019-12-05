@@ -24,8 +24,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <!-- Tells internet explorer to use latest rendering engine -->
-    <meta http-equiv="X-UA-Compatable" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -59,10 +58,10 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <div class="btn-group" role="group" aria-label="navigation button group">
-                  <a role="help button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#helpModal">Help</a>
-                  <a role="forum button" type="button" class="btn btn-primary" href="forum.php">Forum</a>
+                  <a role="button" class="btn btn-primary" href="#" data-toggle="modal" data-target="#helpModal">Help</a>
+                  <a role="button" class="btn btn-primary" href="forum.php">Forum</a>
 <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'MANAGER'):?>
-                  <a href="manager.php" role="manager button" type="button" class="btn btn-primary">Manager Functions</a>
+                  <a href="manager.php" role="button" class="btn btn-primary">Manager Functions</a>
 <?php endif?>
               </div>
             </li>
@@ -73,7 +72,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             <input type="submit" class="btn btn-outline-primary my-2 my-sm-0" value="Logoff">
           </form>
 <?php else: ?>
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="login"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></button>
+          <a href="#" class="btn btn-outline-primary my-2 my-sm-0" data-toggle="modal" data-target="#loginModal">Login</a>
 <?php endif; ?>
           <div class="nav-link">
             <div class="custom-control custom-switch">

@@ -19,8 +19,7 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <!-- Tells internet explorer to use latest rendering engine -->
-    <meta http-equiv="X-UA-Compatable" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -51,9 +50,9 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <div class="btn-group" role="group" aria-label="navigation button group">
-                  <a role="help button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#helpModal">Help</a>
-                  <a role="forum button" type="button" class="btn btn-primary" href="forum.php">Forum</a>
-                  <a href="manager.php" role="manager button" type="button" class="btn btn-primary">Manager Functions</a>
+                  <a role="button" class="btn btn-primary" href="#" data-toggle="modal" data-target="#helpModal">Help</a>
+                  <a role="button" class="btn btn-primary" href="forum.php">Forum</a>
+                  <a href="manager.php" role="button" class="btn btn-primary">Manager Functions</a>
               </div>
             </li>
           </ul>
@@ -134,8 +133,8 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
                 <div class="card-body">
                   <form method="post" action="../php/remove_people.php">
                     <div class="form-group">
-                      <label for="emailInput">Email of person to remove</label>
-                      <input type="email" class="form-control" id="emailInput" placeholder="Enter email" name="email">
+                      <label for="emailInputRemove">Email of person to remove</label>
+                      <input type="email" class="form-control" id="emailInputRemove" placeholder="Enter email" name="email">
                     </div>
                     <div class="form-group">
                       <label for="passInput">Confirm your password</label>
@@ -186,6 +185,7 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
                         <div class="form-group">
                           <label for="addshift-semester">Semester</label>
                           <select name="semester" id="addshift-semester" required>
+                            <option value="">Select a semester</option>
   <?php
   require_once('../php/db_connection.php');
   $conn = OpenCon();
@@ -222,6 +222,7 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
                         <div class="form-group">
                           <label for="addshift-ta">TA</label>
                           <select name="ta" id="addshift-ta" required>
+                            <option value="">Select a TA</option>
   <?php
   require_once('../php/db_connection.php');
   $conn = OpenCon();
@@ -494,6 +495,7 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'MANAGER') {
           </div>
       </div>
 
+    </div>
     </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -25,8 +25,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <!-- Tells internet explorer to use latest rendering engine -->
-    <meta http-equiv="X-UA-Compatable" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -62,10 +61,10 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <div class="btn-group" role="group" aria-label="navigation button group">
-                  <a role="help button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#helpModal">Help</a>
-                  <a role="forum button" type="button" class="btn btn-primary" href="#">Forum</a>
+                  <a role="button" class="btn btn-primary" href="#" data-toggle="modal" data-target="#helpModal">Help</a>
+                  <a role="button" class="btn btn-primary" href="#">Forum</a>
 <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'MANAGER'):?>
-                  <a href="manager.php" role="manager button" type="button" class="btn btn-primary">Manager Functions</a>
+                  <a href="manager.php" role="button" class="btn btn-primary">Manager Functions</a>
 <?php endif?>
               </div>
             </li>
@@ -248,7 +247,6 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
                   'anonymous' will be chosen. *Note* The dialog will not close when you hit submit but a display message
                    will tell you if the process was successful; close and refresh the page to see the changes.</li>
                 </ul>
-                </p>
               </div>
               <div class="modal-footer">
                   <button class="btn btn-default" value="Close" data-dismiss="modal">Close</button>
@@ -267,15 +265,15 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
             <form id="ask_form">
               <div class="form-group">
                 <label for="question_title">Question Title</label>
-                <input type="text" class="form-control" id="question_title" aria-describedby="question title" placeholder="Enter title" name="title">
+                <input type="text" class="form-control" id="question_title" placeholder="Enter title" name="title">
                 <small id="titlehelp" class="form-text text-muted">Please enter the title of your post.</small>
               </div>
               <div class="form-group">
-                <textarea id="question_details" rows="4" col="50" name="details" form="ask_form">What's your question?</textarea>
+                <textarea id="question_details" rows="4" name="details" form="ask_form">What's your question?</textarea>
               </div>
               <div class="form-group">
                 <label for="question_author">User</label>
-                <input type="text" class="form-control" id="question_author" aria-describedby="question author" placeholder="*Optional: Who's asking?" name="author">
+                <input type="text" class="form-control" id="question_author" placeholder="*Optional: Who's asking?" name="author">
               </div>
             </form>
           </div>
@@ -318,11 +316,11 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
           <div class="modal-body">
             <form id="answer_form">
               <div class="form-group">
-                <textarea id="answer" rows="4" col="50" name="answer" form="answer_form">What's your answer?</textarea>
+                <textarea id="answer" rows="4" name="answer" form="answer_form">What's your answer?</textarea>
               </div>
               <div class="form-group">
                 <label for="answer_author">User</label>
-                <input type="text" class="form-control" id="answer_author" aria-describedby="answer author" placeholder="*Optional: Who's answering?" name="author">
+                <input type="text" class="form-control" id="answer_author" placeholder="*Optional: Who's answering?" name="author">
               </div>
             </form>
           </div>
@@ -364,5 +362,6 @@ if(isset($_POST['action']) && $_POST['action'] === 'logoff') {
       });
     </script>
 <?php endif;?>
+    </div>
   </body>
 </html>
